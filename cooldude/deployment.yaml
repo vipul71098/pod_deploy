@@ -1,0 +1,23 @@
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: cooldude-deployment
+    spec:
+      replicas: 2  # Set the desired number of replicas
+      selector:
+        matchLabels:
+          app: cooldude-app
+      template:
+        metadata:
+          labels:
+            app: cooldude-app
+        spec:
+          containers:
+            - name: cooldude-app-container
+              image: 694767167361.dkr.ecr.ap-south-1.amazonaws.com/cooldude_nodeapp:latest  # Replace with your container image
+              ports:
+                - containerPort: 5000
+              resources:
+                limits:
+                  cpu: "500m"  # Set the CPU limit for the container
+                  memory: "212Mi"  # Set the memory limit for the containe            r
