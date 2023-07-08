@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cooldude-service
+spec:
+  type: NodePort
+  selector:
+    app: cooldude-app
+  ports:
+    - protocol: TCP
+      port: 80  # Port exposed by the Service
+      targetPort: 5000  # Port your application is listening on within the container
+      nodePort: 30000  # NodePort to access the service
