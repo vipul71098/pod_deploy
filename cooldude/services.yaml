@@ -11,3 +11,12 @@ spec:
       port: 80  # Port exposed by the Service
       targetPort: 5000  # Port your application is listening on within the container
       nodePort: 30000  # NodePort to access the service
+
+# spec:
+#   selector:
+#     app: cooldude-app
+#   ports:
+#     - protocol: TCP
+#       port: 80  # Set the port for the service
+#       targetPort: 5000  # Set the target port for the service
+#   type: ClusterIP  # Expose the service internally within the cluster
