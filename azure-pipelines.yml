@@ -20,12 +20,15 @@ steps:
     echo "Building Docker image..."
     docker build -t my-docker-image:latest .
   displayName: 'Build Docker Image'
+  # Use 'powershell' task for Windows
+  # condition: succeeded()  # Ensure this step runs only if the previous step succeeds
 
-- script: |
-    if [ '${{ parameters.configuration }}' == 'yes' ]; then
-      echo "Deleting Docker image..."
-      docker rmi my-docker-image:latest || true
-    else
-      echo "Skipping Docker image deletion."
-    fi
+- powershell: |
+    if (${{ parameters.configuration }} -eq 'yes') {
+      Write-Output "Deleting Docker image..."
+      docker rmi my-docker-image:latest -f
+    } else {
+      Write-Output "Skipping Docker image deletion."
+    }
   displayName: 'Delete Docker Image'
+  condition: always()  # Ensure this step runs regardless of the success of previous steps
