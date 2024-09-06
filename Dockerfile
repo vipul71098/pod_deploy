@@ -1,17 +1,12 @@
-# Use the Alpine-based Node.js image
-FROM node:14-alpine
-
-# Set the working directory
+# First stage: build
+FROM node:14-alpine AS build
 WORKDIR /app
-
-# Copy application files
 COPY . .
-
-# Install dependencies
 RUN npm install
 
-# Expose port 5000
+# Second stage: runtime
+FROM node:14-alpine
+WORKDIR /app
+COPY --from=build /app /app
 EXPOSE 5000
-
-# Define the command to run the application
 CMD ["node", "index.js"]
