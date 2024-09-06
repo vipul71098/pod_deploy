@@ -18,7 +18,10 @@ steps:
 
 - script: |
     echo "Building Docker image..."
-    docker build --rm -t my-docker-image:latest .
+    docker build -t my-docker-image:latest .
+    docker build -t test.azurecr.io/qa:12345 .
+    docker build -t test.azurecr.io/qa-azurequeueimport:20240904.5 .
+    docker build -t test.azurecr.io/qa-azurequeuepayroll:20240904.5 .
   displayName: 'Build Docker Image'
 
 - powershell: |
@@ -27,7 +30,10 @@ steps:
       Write-Output "Deleting Docker image..."
       docker rmi my-docker-image:latest -f
     } else {
-      Write-Output "Skipping Docker image deletion."
+      Write-Output "Retagging Docker images to dev..."
+      docker tag test.azurecr.io/qa:12345 test.azurecr.io/dev:12345
+      docker tag test.azurecr.io/qa-azurequeueimport:20240904.5 test.azurecr.io/dev-azurequeueimport:20240904.5 
+      docker tag test.azurecr.io/qa-azurequeuepayroll:20240904.5 test.azurecr.io/dev-azurequeuepayroll:20240904.5
     }
-  displayName: 'Delete Docker Image'
+  displayName: 'Delete or Retag Docker Images'
   condition: always()  # Ensure this step runs regardless of the success of previous steps
