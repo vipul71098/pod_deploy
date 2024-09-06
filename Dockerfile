@@ -1,10 +1,17 @@
-FROM node:14
+# Use the Alpine-based Node.js image
+FROM node:14-alpine
 
-WORKDIR /
+# Set the working directory
+WORKDIR /app
 
-COPY  . .
+# Copy application files
+COPY . .
 
-RUN npm install 
+# Install dependencies
+RUN npm install
 
+# Expose port 5000
 EXPOSE 5000
+
+# Define the command to run the application
 CMD ["node", "index.js"]
