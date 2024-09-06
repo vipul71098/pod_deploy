@@ -22,7 +22,8 @@ steps:
   displayName: 'Build Docker Image'
 
 - powershell: |
-    if (${{ parameters.configuration }} -eq 'yes') {
+    $config = '${{ parameters.configuration }}'
+    if ($config -eq 'yes') {
       Write-Output "Deleting Docker image..."
       docker rmi my-docker-image:latest -f
     } else {
