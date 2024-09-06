@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'vips-test'  # Specify your custom agent pool here
+  name: 'vips-agent'  # Specify your custom agent pool here
 
 parameters:
 - name: configuration
