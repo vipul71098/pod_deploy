@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'vips-test'  # Specify your custom agent pool here
 
 parameters:
 - name: configuration
@@ -14,13 +14,12 @@ parameters:
   - 'no'
 
 steps:
-- checkout: self
+- checkout: self  # Use 'self' to check out the repository where the YAML is located
 
 - script: |
     echo "Building Docker image..."
     docker build -t my-docker-image:latest .
   displayName: 'Build Docker Image'
-
 
 - script: |
     if [ '${{ parameters.configuration }}' == 'yes' ]; then
@@ -30,4 +29,3 @@ steps:
       echo "Skipping Docker image deletion."
     fi
   displayName: 'Delete Docker Image'
-  condition: always()  # Ensure this step runs regardless of previous steps' success
