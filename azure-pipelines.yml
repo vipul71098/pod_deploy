@@ -20,8 +20,6 @@ steps:
     echo "Building Docker image..."
     docker build -t my-docker-image:latest .
   displayName: 'Build Docker Image'
-  # Use 'powershell' task for Windows
-  # condition: succeeded()  # Ensure this step runs only if the previous step succeeds
 
 - powershell: |
     if (${{ parameters.configuration }} -eq 'yes') {
