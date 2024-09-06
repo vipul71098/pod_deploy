@@ -18,7 +18,7 @@ steps:
 
 - script: |
     echo "Building Docker image..."
-    docker build -t my-docker-image:latest .
+    docker build --rm -t my-docker-image:latest .
   displayName: 'Build Docker Image'
 
 - powershell: |
