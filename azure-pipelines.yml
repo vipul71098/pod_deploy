@@ -5,8 +5,8 @@ pool:
   name: 'vips-agent'  # Specify your custom agent pool here
 
 parameters:
-- name: configuration
-  displayName: Configuration
+- name: delete_docker_image
+  displayName: Delete Docker Image
   type: string
   default: 'no'
   values:
@@ -22,7 +22,7 @@ steps:
   displayName: 'Build Docker Image'
 
 - powershell: |
-    $config = '${{ parameters.configuration }}'
+    $config = '${{ parameters.delete_docker_image }}'
     if ($config -eq 'yes') {
       Write-Output "Deleting Docker image..."
       docker rmi my-docker-image:latest -f
