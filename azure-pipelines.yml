@@ -18,23 +18,23 @@ steps:
 
 - script: |
     echo "Building Docker images..."
-    docker build -t test.azurecr.io/qa:$(Build.BuildNumber) .
-    echo "Built Docker image: test.azurecr.io/qa:$(Build.BuildNumber)"
+    docker build -t vipstest.azurecr.io/qa:$(Build.BuildNumber) .
+    echo "Built Docker image: vipstest.azurecr.io/qa:$(Build.BuildNumber)"
     
-    docker build -t test.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber) .
-    echo "Built Docker image: test.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)"
+    docker build -t vipstest.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber) .
+    echo "Built Docker image: vipstest.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)"
     
-    docker build -t test.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber) .
-    echo "Built Docker image: test.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)"
+    docker build -t vipstest.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber) .
+    echo "Built Docker image: vipstest.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)"
     
-    docker push test.azurecr.io/qa:$(Build.BuildNumber)
-    echo "Pushed Docker image: test.azurecr.io/qa:$(Build.BuildNumber)"
+    docker push vipstest.azurecr.io/qa:$(Build.BuildNumber)
+    echo "Pushed Docker image: vipstest.azurecr.io/qa:$(Build.BuildNumber)"
     
-    docker push test.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)
-    echo "Pushed Docker image: test.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)"
+    docker push vipstest.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)
+    echo "Pushed Docker image: vipstest.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)"
     
-    docker push test.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)
-    echo "Pushed Docker image: test.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)"
+    docker push vipstest.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)
+    echo "Pushed Docker image: vipstest.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)"
   displayName: 'Build and Push Docker Images'
 
 - powershell: |
@@ -42,34 +42,33 @@ steps:
     if ($config -eq 'yes') {
       Write-Host "Deleting Docker images with build number $(Build.BuildNumber)"
       
-      docker rmi test.azurecr.io/qa:$(Build.BuildNumber)
-      Write-Host "Deleted Docker image: test.azurecr.io/qa:$(Build.BuildNumber)"
+      docker rmi vipstest.azurecr.io/qa:$(Build.BuildNumber)
+      Write-Host "Deleted Docker image: vipstest.azurecr.io/qa:$(Build.BuildNumber)"
       
-      docker rmi test.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)
-      Write-Host "Deleted Docker image: test.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)"
+      docker rmi vipstest.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)
+      Write-Host "Deleted Docker image: vipstest.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber)"
       
-      docker rmi test.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)
-      Write-Host "Deleted Docker image: test.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)"
+      docker rmi vipstest.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)
+      Write-Host "Deleted Docker image: vipstest.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber)"
     } else {
       Write-Host "Retagging Docker images to dev with build number $(Build.BuildNumber)"
       
-      docker tag test.azurecr.io/qa:$(Build.BuildNumber) test.azurecr.io/dev:$(Build.BuildNumber)
-      Write-Host "Tagged Docker image as: test.azurecr.io/dev:$(Build.BuildNumber)"
+      docker tag vipstest.azurecr.io/qa:$(Build.BuildNumber) vipstest.azurecr.io/dev:$(Build.BuildNumber)
+      Write-Host "Tagged Docker image as: vipstest.azurecr.io/dev:$(Build.BuildNumber)"
       
-      docker tag test.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber) test.azurecr.io/dev-azurequeueimport:$(Build.BuildNumber)
-      Write-Host "Tagged Docker image as: test.azurecr.io/dev-azurequeueimport:$(Build.BuildNumber)"
+      docker tag vipstest.azurecr.io/qa-azurequeueimport:$(Build.BuildNumber) vipstest.azurecr.io/dev-azurequeueimport:$(Build.BuildNumber)
+      Write-Host "Tagged Docker image as: vipstest.azurecr.io/dev-azurequeueimport:$(Build.BuildNumber)"
       
-      docker tag test.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber) test.azurecr.io/dev-azurequeuepayroll:$(Build.BuildNumber)
-      Write-Host "Tagged Docker image as: test.azurecr.io/dev-azurequeuepayroll:$(Build.BuildNumber)"
+      docker tag vipstest.azurecr.io/qa-azurequeuepayroll:$(Build.BuildNumber) vipstest.azurecr.io/dev-azurequeuepayroll:$(Build.BuildNumber)
+      Write-Host "Tagged Docker image as: vipstest.azurecr.io/dev-azurequeuepayroll:$(Build.BuildNumber)"
       
-      docker push test.azurecr.io/dev:$(Build.BuildNumber)
-      Write-Host "Pushed Docker image: test.azurecr.io/dev:$(Build.BuildNumber)"
+      docker push vipstest.azurecr.io/dev:$(Build.BuildNumber)
+      Write-Host "Pushed Docker image: vipstest.azurecr.io/dev:$(Build.BuildNumber)"
       
-      docker push test.azurecr.io/dev-azurequeueimport:$(Build.BuildNumber)
-      Write-Host "Pushed Docker image: test.azurecr.io/dev-azurequeueimport:$(Build.BuildNumber)"
+      docker push vipstest.azurecr.io/dev-azurequeueimport:$(Build.BuildNumber)
+      Write-Host "Pushed Docker image: vipstest.azurecr.io/dev-azurequeueimport:$(Build.BuildNumber)"
       
-      docker push test.azurecr.io/dev-azurequeuepayroll:$(Build.BuildNumber)
-      Write-Host "Pushed Docker image: test.azurecr.io/dev-azurequeuepayroll:$(Build.BuildNumber)"
+      docker push vipstest.azurecr.io/dev-azurequeuepayroll:$(Build.BuildNumber)
+      Write-Host "Pushed Docker image: vipstest.azurecr.io/dev-azurequeuepayroll:$(Build.BuildNumber)"
     }
   displayName: 'Delete or Retag Docker Images'
-  condition: always()  # Ensure this step runs regardless of the success of previous steps
