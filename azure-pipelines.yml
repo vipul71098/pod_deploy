@@ -13,8 +13,12 @@ parameters:
   - 'yes'
   - 'no'
 
+# steps:
+# - checkout: self  # Use 'self' to check out the repository where the YAML is located
+
 steps:
-- checkout: self  # Use 'self' to check out the repository where the YAML is located
+- powershell: Get-ChildItem Env:
+  displayName: 'Print All Environment Variables'
 
 
 - script: |
