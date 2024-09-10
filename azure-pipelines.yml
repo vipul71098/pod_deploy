@@ -16,6 +16,11 @@ parameters:
 steps:
 - checkout: self  # Use 'self' to check out the repository where the YAML is located
 
+steps:
+- script: printenv
+  displayName: 'Print All Environment Variables'
+
+
 - script: |
     echo "Building Docker images..."
     docker build -t vipstest.azurecr.io/qa:$(Build.BuildNumber) .
